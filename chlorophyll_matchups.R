@@ -21,4 +21,8 @@ chl_per_depth <- chl %>% group_by(dataset_id, latitude, longitude, depth_m, date
 chl_mixed <- chl %>% group_by(dataset_id, latitude, longitude, date) %>% summarize(
   chl = mean(chl_ugL, na.rm = TRUE))
 
+write.csv(chl_mixed, '/Users/rachelcarlson/Documents/Research/Postdoc-2022-present/RS_chlorophyll/MOCHA_matchups.csv')
+
+sf_chl_mixed <- st_as_sf(chl_mixed, coords = c("longitude", "latitude"))
+st_write(sf_chl_mixed, "/Users/rachelcarlson/Documents/Research/Postdoc-2022-present/RS_chlorophyll/Data/MOCHA_matchups.shp")
 
