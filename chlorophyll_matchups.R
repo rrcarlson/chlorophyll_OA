@@ -22,7 +22,8 @@ chl_per_depth <- chl %>% group_by(dataset_id, latitude, longitude, depth_m, year
 chl_mixed <- chl %>% group_by(dataset_id, latitude, longitude, year, date) %>% summarize(
   chl = mean(chl_ugL, na.rm = TRUE))
 
-chl_sentinel <- chl_mixed %>% filter(year >= 2017)
+chl_mixed$date <- as.Date(chl_mixed$date, format = "%Y-%m-%d")
+chl_sentinel <- chl_mixed %>% filter(date > '2019-06-08')
 
 write.csv(chl_mixed, '/Users/rachelcarlson/Documents/Research/Postdoc-2022-present/RS_chlorophyll/Data/MOCHA_matchups.csv')
 write.csv(chl_sentinel, '/Users/rachelcarlson/Documents/Research/Postdoc-2022-present/RS_chlorophyll/Data/MOCHA_matchups_sentinel.csv')
